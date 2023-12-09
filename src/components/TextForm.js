@@ -20,7 +20,7 @@ export default function TextForm(props) {
     }
 
     const handleClearClick = ()=>{
-        let newText = " ";
+        let newText = "";
         setText(newText)
         props.showAlert(" Your Text has been cleared" , "success")
     }
@@ -34,24 +34,30 @@ export default function TextForm(props) {
   
   <textarea className="form-control" onChange={handleOnChange} value={text} id="myBox" rows="10" style={{backgroundColor:props.mode === 'light'?'white': '#0a0d10', color:props.mode === 'light'?'black': 'white'}}></textarea>
 </div>
-    <button className="btn btn-primary" onClick={handleUpClick}>
+    <button disabled={text.length===0} className="btn btn-primary mx-3 my-1" onClick={handleUpClick}>
         Convert to Uppercase
     </button>
-    <button className="btn btn-primary mx-3" onClick={handleLoClick}>
+    <button disabled={text.length===0}className="btn btn-primary mx-3 my-1" onClick={handleLoClick}>
         Convert to Lower Case
     </button>
-    <button className="btn btn-primary mx-3" onClick={handleClearClick}>
+    <button disabled={text.length===0}className="btn btn-primary mx-3 my-1" onClick={handleClearClick}>
         Clear Text
     </button>
    
 </div>
 <div className="container my-3">
     <h1 className={`text-${props.mode==='dark'?'light':'dark'}`}>Your Text Summary</h1>
-    <p className={`text-${props.mode==='dark'?'light':'dark'}`}> {text.split(" ").length} words <br /> {text.length} character</p>
-    <p className={`text-${props.mode==='dark'?'light':'dark'}`}> {text.split(".").length} Number of Sentences </p>
-    <p className={`text-${props.mode==='dark'?'light':'dark'}`}>{0.008 * text.split(" ").length } minutes to read</p>
+    <p className={`text-${props.mode==='dark'?'light':'dark'}`}> {text.split(" ").filter((element)=>{
+        return element.length!==0
+    }).length} words <br /> {text.length} character</p>
+    <p className={`text-${props.mode==='dark'?'light':'dark'}`}> {text.split(".").filter((element)=>{
+        return element.length!==0
+    }).length} Number of Sentences </p>
+    <p className={`text-${props.mode==='dark'?'light':'dark'}`}>{0.008 * text.split(" ").filter((element)=>{
+        return element.length!==0
+    }).length } minutes to read</p>
     <h2 className={`text-${props.mode==='dark'?'light':'dark'}`}>Preview</h2>
-    <p className={`text-${props.mode==='dark'?'light':'dark'}`}>{text}</p>
+    <p className={`text-${props.mode==='dark'?'light':'dark'}`}>{text.length>0?text: "Nothing to Preview"}</p>
 </div>
 </>
   )
