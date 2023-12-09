@@ -47,7 +47,7 @@ export default function TextForm(props) {
 </div>
 <div className="container my-3">
     <h1 className={`text-${props.mode==='dark'?'light':'dark'}`}>Your Text Summary</h1>
-    <p className={`text-${props.mode==='dark'?'light':'dark'}`}> {text.split(" ").filter((element)=>{
+    <p className={`text-${props.mode==='dark'?'light':'dark'}`}> {text.split(/\s+/).filter((element)=>{
         return element.length!==0
     }).length} words <br /> {text.length} character</p>
     <p className={`text-${props.mode==='dark'?'light':'dark'}`}> {text.split(".").filter((element)=>{
